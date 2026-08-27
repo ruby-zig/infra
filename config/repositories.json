@@ -1,0 +1,1339 @@
+{
+  "schema": 1,
+  "source_owner": "ruby",
+  "destination_owner": "ruby-zig",
+  "captured_at": "2026-08-27T03:26:55.5480354Z",
+  "count": 190,
+  "repositories": [
+    {
+      "name": ".github",
+      "upstream": "ruby/.github",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "abbrev",
+      "upstream": "ruby/abbrev",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "action-slack",
+      "upstream": "ruby/action-slack",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "actions",
+      "upstream": "ruby/actions",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "actions-coverity-scan",
+      "upstream": "ruby/actions-coverity-scan",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "all-ruby",
+      "upstream": "ruby/all-ruby",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "b.r-l.o",
+      "upstream": "ruby/b.r-l.o",
+      "default_branch": "ro-7-0",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "base64",
+      "upstream": "ruby/base64",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "benchmark",
+      "upstream": "ruby/benchmark",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "bigdecimal",
+      "upstream": "ruby/bigdecimal",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "bitclust",
+      "upstream": "ruby/bitclust",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "blade.ruby-lang.org",
+      "upstream": "ruby/blade.ruby-lang.org",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "bundler-graph",
+      "upstream": "ruby/bundler-graph",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "cache.r-l.o",
+      "upstream": "ruby/cache.r-l.o",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "cgi",
+      "upstream": "ruby/cgi",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "chkbuild",
+      "upstream": "ruby/chkbuild",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "cmath",
+      "upstream": "ruby/cmath",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "csv",
+      "upstream": "ruby/csv",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "curses",
+      "upstream": "ruby/curses",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "date",
+      "upstream": "ruby/date",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "dbm",
+      "upstream": "ruby/dbm",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "debug",
+      "upstream": "ruby/debug",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "delegate",
+      "upstream": "ruby/delegate",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "dev-meeting-log",
+      "upstream": "ruby/dev-meeting-log",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "did_you_mean",
+      "upstream": "ruby/did_you_mean",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "digest",
+      "upstream": "ruby/digest",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "docker-images",
+      "upstream": "ruby/docker-images",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "docs.ruby-lang.org",
+      "upstream": "ruby/docs.ruby-lang.org",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "documetrix",
+      "upstream": "ruby/documetrix",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "drb",
+      "upstream": "ruby/drb",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "e2mmap",
+      "upstream": "ruby/e2mmap",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "elisp",
+      "upstream": "ruby/elisp",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "elisp-rdoc-mode",
+      "upstream": "ruby/elisp-rdoc-mode",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "elisp-ruby-electric",
+      "upstream": "ruby/elisp-ruby-electric",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "English",
+      "upstream": "ruby/English",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "erb",
+      "upstream": "ruby/erb",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "error_highlight",
+      "upstream": "ruby/error_highlight",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "etc",
+      "upstream": "ruby/etc",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "fcntl",
+      "upstream": "ruby/fcntl",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "fiddle",
+      "upstream": "ruby/fiddle",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "fileutils",
+      "upstream": "ruby/fileutils",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "find",
+      "upstream": "ruby/find",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "forwardable",
+      "upstream": "ruby/forwardable",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "gdbm",
+      "upstream": "ruby/gdbm",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "gem_rbs_collection",
+      "upstream": "ruby/gem_rbs_collection",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "getoptlong",
+      "upstream": "ruby/getoptlong",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "git.ruby-lang.org",
+      "upstream": "ruby/git.ruby-lang.org",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "gserver",
+      "upstream": "ruby/gserver",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "heroku-buildpack-bugs-ruby-lang",
+      "upstream": "ruby/heroku-buildpack-bugs-ruby-lang",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "heroku-buildpack-www-ruby-lang",
+      "upstream": "ruby/heroku-buildpack-www-ruby-lang",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "iconv",
+      "upstream": "ruby/iconv",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "io-console",
+      "upstream": "ruby/io-console",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "io-nonblock",
+      "upstream": "ruby/io-nonblock",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "io-wait",
+      "upstream": "ruby/io-wait",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ipaddr",
+      "upstream": "ruby/ipaddr",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "irb",
+      "upstream": "ruby/irb",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "jruby-dev-builder",
+      "upstream": "ruby/jruby-dev-builder",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "json",
+      "upstream": "ruby/json",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "logger",
+      "upstream": "ruby/logger",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "logger-application",
+      "upstream": "ruby/logger-application",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "lrama",
+      "upstream": "ruby/lrama",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "mathn",
+      "upstream": "ruby/mathn",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "matrix",
+      "upstream": "ruby/matrix",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "mmtk",
+      "upstream": "ruby/mmtk",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "monitor",
+      "upstream": "ruby/monitor",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "mspec",
+      "upstream": "ruby/mspec",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "mutex_m",
+      "upstream": "ruby/mutex_m",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-ftp",
+      "upstream": "ruby/net-ftp",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-http",
+      "upstream": "ruby/net-http",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-http-sspi",
+      "upstream": "ruby/net-http-sspi",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-imap",
+      "upstream": "ruby/net-imap",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-pop",
+      "upstream": "ruby/net-pop",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-protocol",
+      "upstream": "ruby/net-protocol",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-smtp",
+      "upstream": "ruby/net-smtp",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "net-telnet",
+      "upstream": "ruby/net-telnet",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "nkf",
+      "upstream": "ruby/nkf",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "observer",
+      "upstream": "ruby/observer",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "open-uri",
+      "upstream": "ruby/open-uri",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "open3",
+      "upstream": "ruby/open3",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "openssl",
+      "upstream": "ruby/openssl",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "optparse",
+      "upstream": "ruby/optparse",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ostruct",
+      "upstream": "ruby/ostruct",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "pathname",
+      "upstream": "ruby/pathname",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "play-ruby",
+      "upstream": "ruby/play-ruby",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "power_assert",
+      "upstream": "ruby/power_assert",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "pp",
+      "upstream": "ruby/pp",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "prettyprint",
+      "upstream": "ruby/prettyprint",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "prime",
+      "upstream": "ruby/prime",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "prism",
+      "upstream": "ruby/prism",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "profile",
+      "upstream": "ruby/profile",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "pstore",
+      "upstream": "ruby/pstore",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "psych",
+      "upstream": "ruby/psych",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "racc",
+      "upstream": "ruby/racc",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rake",
+      "upstream": "ruby/rake",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rake-contrib",
+      "upstream": "ruby/rake-contrib",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rbmanager",
+      "upstream": "ruby/rbmanager",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rbs",
+      "upstream": "ruby/rbs",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rbs_json_schema",
+      "upstream": "ruby/rbs_json_schema",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc",
+      "upstream": "ruby/rdoc",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-browser",
+      "upstream": "ruby/rdoc-browser",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-data",
+      "upstream": "ruby/rdoc-data",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-generators",
+      "upstream": "ruby/rdoc-generators",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-html_templates",
+      "upstream": "ruby/rdoc-html_templates",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-perl_pod",
+      "upstream": "ruby/rdoc-perl_pod",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-rake",
+      "upstream": "ruby/rdoc-rake",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-sinatra",
+      "upstream": "ruby/rdoc-sinatra",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-spellcheck",
+      "upstream": "ruby/rdoc-spellcheck",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-tags",
+      "upstream": "ruby/rdoc-tags",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc-texinfo",
+      "upstream": "ruby/rdoc-texinfo",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rdoc_chm",
+      "upstream": "ruby/rdoc_chm",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "readline",
+      "upstream": "ruby/readline",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "readline-ext",
+      "upstream": "ruby/readline-ext",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_elasticsearch",
+      "upstream": "ruby/redmine_elasticsearch",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "redmine_link_to_root",
+      "upstream": "ruby/redmine_link_to_root",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_mailing_list_integration",
+      "upstream": "ruby/redmine_mailing_list_integration",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_mailing_list_integration_imap_supplement",
+      "upstream": "ruby/redmine_mailing_list_integration_imap_supplement",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_rd_formatter",
+      "upstream": "ruby/redmine_rd_formatter",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_ruby_lang_mailing_list_customization",
+      "upstream": "ruby/redmine_ruby_lang_mailing_list_customization",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "redmine_s3",
+      "upstream": "ruby/redmine_s3",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "reline",
+      "upstream": "ruby/reline",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "repl_type_completor",
+      "upstream": "ruby/repl_type_completor",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "resolv",
+      "upstream": "ruby/resolv",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "resolv-replace",
+      "upstream": "ruby/resolv-replace",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rexml",
+      "upstream": "ruby/rexml",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rinda",
+      "upstream": "ruby/rinda",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rjit",
+      "upstream": "ruby/rjit",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rss",
+      "upstream": "ruby/rss",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby",
+      "upstream": "ruby/ruby",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-bench",
+      "upstream": "ruby/ruby-bench",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-builder",
+      "upstream": "ruby/ruby-builder",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-ci-image",
+      "upstream": "ruby/ruby-ci-image",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-core-tasks",
+      "upstream": "ruby/ruby-core-tasks",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-dev-builder",
+      "upstream": "ruby/ruby-dev-builder",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby-infra-recipe",
+      "upstream": "ruby/ruby-infra-recipe",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby.wasm",
+      "upstream": "ruby/ruby.wasm",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "ruby2_keywords",
+      "upstream": "ruby/ruby2_keywords",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubyci",
+      "upstream": "ruby/rubyci",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubyci-alerts",
+      "upstream": "ruby/rubyci-alerts",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubygems",
+      "upstream": "ruby/rubygems",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubygems-generate_index",
+      "upstream": "ruby/rubygems-generate_index",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubygems-mirror",
+      "upstream": "ruby/rubygems-mirror",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubygems-server",
+      "upstream": "ruby/rubygems-server",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rubyspec.github.io",
+      "upstream": "ruby/rubyspec.github.io",
+      "default_branch": "gh-pages",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "rurema-search",
+      "upstream": "ruby/rurema-search",
+      "default_branch": "ro",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "scanf",
+      "upstream": "ruby/scanf",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "sdbm",
+      "upstream": "ruby/sdbm",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "securerandom",
+      "upstream": "ruby/securerandom",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "set",
+      "upstream": "ruby/set",
+      "default_branch": "master",
+      "archived": true,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "setup-msys2-gcc",
+      "upstream": "ruby/setup-msys2-gcc",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "setup-ruby",
+      "upstream": "ruby/setup-ruby",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "setup-ruby-pkgs",
+      "upstream": "ruby/setup-ruby-pkgs",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "shell",
+      "upstream": "ruby/shell",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "shellwords",
+      "upstream": "ruby/shellwords",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "simplecov",
+      "upstream": "ruby/simplecov",
+      "default_branch": "ruby",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "singleton",
+      "upstream": "ruby/singleton",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "snap.ruby",
+      "upstream": "ruby/snap.ruby",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "spec",
+      "upstream": "ruby/spec",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "stringio",
+      "upstream": "ruby/stringio",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "strscan",
+      "upstream": "ruby/strscan",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "syck",
+      "upstream": "ruby/syck",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "sync",
+      "upstream": "ruby/sync",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "syntax_suggest",
+      "upstream": "ruby/syntax_suggest",
+      "default_branch": "main",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "syslog",
+      "upstream": "ruby/syslog",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "tempfile",
+      "upstream": "ruby/tempfile",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "test-unit-ruby-core",
+      "upstream": "ruby/test-unit-ruby-core",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "thwait",
+      "upstream": "ruby/thwait",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "time",
+      "upstream": "ruby/time",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "timeout",
+      "upstream": "ruby/timeout",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "tk",
+      "upstream": "ruby/tk",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "tmpdir",
+      "upstream": "ruby/tmpdir",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "tracer",
+      "upstream": "ruby/tracer",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "truffleruby-dev-builder",
+      "upstream": "ruby/truffleruby-dev-builder",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "TryRuby",
+      "upstream": "ruby/TryRuby",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "tsort",
+      "upstream": "ruby/tsort",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "typeprof",
+      "upstream": "ruby/typeprof",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "un",
+      "upstream": "ruby/un",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "uri",
+      "upstream": "ruby/uri",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "vscode-rdbg",
+      "upstream": "ruby/vscode-rdbg",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "vscode-typeprof",
+      "upstream": "ruby/vscode-typeprof",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "vterm-gem",
+      "upstream": "ruby/vterm-gem",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "weakref",
+      "upstream": "ruby/weakref",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "webrick",
+      "upstream": "ruby/webrick",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "win32-registry",
+      "upstream": "ruby/win32-registry",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "win32api",
+      "upstream": "ruby/win32api",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "win32ole",
+      "upstream": "ruby/win32ole",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "www.ruby-lang.org",
+      "upstream": "ruby/www.ruby-lang.org",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "xmlrpc",
+      "upstream": "ruby/xmlrpc",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "yamatanooroti",
+      "upstream": "ruby/yamatanooroti",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": true
+    },
+    {
+      "name": "yaml",
+      "upstream": "ruby/yaml",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    },
+    {
+      "name": "zlib",
+      "upstream": "ruby/zlib",
+      "default_branch": "master",
+      "archived": false,
+      "upstream_is_fork": false
+    }
+  ]
+}

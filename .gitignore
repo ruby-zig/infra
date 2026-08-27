@@ -1,0 +1,12 @@
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.log
+reports/
+tmp/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
