@@ -97,26 +97,63 @@ jobs:
             --branch '${{ matrix.branch }}' \
             --destination-owner '${{ matrix.destination_owner }}' \
             --report "$REPORT"
+      - name: Mint toolchain dispatch App token
+        if: steps.sync.outcome == 'success'
+        id: dispatch-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.RUBY_ZIG_DISPATCH_APP_ID }}
+          private-key: ${{ secrets.RUBY_ZIG_DISPATCH_APP_PRIVATE_KEY }}
+          owner: ruby-zig
+          repositories: toolchain
+          permission-actions: write
+      - name: Dispatch exact synchronized SHA
+        if: steps.sync.outcome == 'success'
+        id: dispatch
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.dispatch-token.outputs.token }}
+          SYNC_REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
+          DISPATCH_REPORT: ${{ runner.temp }}/ruby-zig-sync/dispatch-${{ matrix.lane_id }}.json
+        run: |
+          chmod +x scripts/dispatch-build.sh
+          scripts/dispatch-build.sh \
+            --sync-report "$SYNC_REPORT" \
+            --name '${{ matrix.name }}' \
+            --upstream '${{ matrix.upstream }}' \
+            --branch '${{ matrix.branch }}' \
+            --destination-owner '${{ matrix.destination_owner }}' \
+            --report "$DISPATCH_REPORT"
       - name: Publish lane summary
         if: always()
         shell: bash
         env:
           REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
+          DISPATCH_REPORT: ${{ runner.temp }}/ruby-zig-sync/dispatch-${{ matrix.lane_id }}.json
         run: |
           if [[ -s "$REPORT" ]]; then
             jq -r '"### `" + .repository + "@" + .branch + "`\n\nStatus: **" + .status + "**\n\nBefore: `" + (.before // "") + "`\n\nUpstream: `" + (.upstream_sha // "") + "`"' "$REPORT" >> "$GITHUB_STEP_SUMMARY"
           fi
-      - name: Upload sync report
+          if [[ -s "$DISPATCH_REPORT" ]]; then
+            jq -r '"\n\nDispatch: **" + .outcome + "**\n\nController: `" + .controller.repository + "/" + .controller.workflow + "@" + .controller.ref + "`\n\nRun: " + (if .workflow_run == null then "not created" else "[" + (.workflow_run.id | tostring) + "](" + .workflow_run.html_url + ")" end)' "$DISPATCH_REPORT" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload handoff reports
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: sync-${{ matrix.lane_id }}
-          path: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
+          name: handoff-${{ matrix.lane_id }}
+          path: |
+            ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
+            ${{ runner.temp }}/ruby-zig-sync/dispatch-${{ matrix.lane_id }}.json
           if-no-files-found: warn
           retention-days: 30
-      - name: Propagate sync failure
+      - name: Propagate lane failure
         if: always()
         shell: bash
         env:
           SYNC_OUTCOME: ${{ steps.sync.outcome }}
-        run: test "$SYNC_OUTCOME" = success
+          DISPATCH_OUTCOME: ${{ steps.dispatch.outcome }}
+        run: |
+          test "$SYNC_OUTCOME" = success
+          test "$DISPATCH_OUTCOME" = success

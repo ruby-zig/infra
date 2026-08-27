@@ -1,0 +1,52 @@
+name: control
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: control-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Python unit tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Mocked shell tests
+        shell: bash
+        run: |
+          for test in tests/*.sh; do
+            bash "$test"
+          done
+      - name: Validate active and discovery inventories
+        run: |
+          python3 scripts/validate_inventory.py config/repositories.json \
+            --expected-count 39 \
+            --require-scope native-build-affected
+          python3 scripts/validate_inventory.py config/discovery-repositories.json \
+            --expected-count 190
+      - name: Check shell syntax
+        shell: bash
+        run: |
+          for script in scripts/*.sh tests/*.sh; do
+            bash -n "$script"
+          done
+      - name: Parse JSON
+        shell: bash
+        run: |
+          for document in config/*.json; do
+            jq -e . "$document" >/dev/null
+          done
+      - name: ShellCheck
+        shell: bash
+        run: shellcheck scripts/*.sh tests/*.sh
