@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -12,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 
-from validate_inventory import load_and_validate
+from validate_inventory import ACTIVE_SCOPE, load_and_validate
 
 
 @dataclass(frozen=True)
@@ -56,16 +58,43 @@ class GitHubClient:
                     return RefResult(None, f"github-http-{error.code}")
             except (OSError, TimeoutError, json.JSONDecodeError) as error:
                 if attempt == 2:
-                    return RefResult(None, f"github-request-{type(error).__name__.lower()}")
+                    return RefResult(
+                        None, f"github-request-{type(error).__name__.lower()}"
+                    )
             time.sleep(1 << attempt)
         return RefResult(None, "github-request-failed")
 
 
-def inspect_repository(client: GitHubClient, source_owner: str, destination_owner: str, item: dict) -> dict:
-    name = item["name"]
-    branch = item["default_branch"]
-    upstream = client.ref(source_owner, name, branch)
-    destination = client.ref(destination_owner, name, branch)
+def make_lane_id(name: str, branch: str) -> str:
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "-", branch).strip("-.") or "ref"
+    digest = hashlib.sha256(f"{name}\0{branch}".encode()).hexdigest()[:12]
+    return f"{name}--{slug[:80]}-{digest}"
+
+
+def expand_lanes(data: dict) -> list[dict]:
+    lanes = [
+        {
+            "name": repository["name"],
+            "upstream": repository["upstream"],
+            "branch": branch,
+            "expected_default_branch": repository["default_branch"],
+            "destination_owner": data["destination_owner"],
+            "lane_id": make_lane_id(repository["name"], branch),
+        }
+        for repository in data["repositories"]
+        for branch in repository["branches"]
+    ]
+    lane_ids = [lane["lane_id"] for lane in lanes]
+    if len(lane_ids) != len(set(lane_ids)):
+        raise SystemExit("generated lane IDs are not unique")
+    return lanes
+
+
+def inspect_lane(
+    client: GitHubClient, source_owner: str, destination_owner: str, lane: dict
+) -> dict:
+    upstream = client.ref(source_owner, lane["name"], lane["branch"])
+    destination = client.ref(destination_owner, lane["name"], lane["branch"])
     errors = [error for error in (upstream.error, destination.error) if error]
     if errors:
         state = "scan-error:" + ",".join(errors)
@@ -73,40 +102,70 @@ def inspect_repository(client: GitHubClient, source_owner: str, destination_owne
         state = "current"
     else:
         state = "changed"
-    return {"item": item, "state": state}
+    return {"lane": lane, "state": state}
 
 
-def build_matrix(data: dict, repository: str, client: GitHubClient, workers: int = 8) -> tuple[dict, dict]:
-    items = data["repositories"]
-    manual_single = repository != "all"
-    if manual_single:
-        items = [item for item in items if item["name"] == repository]
-        if not items:
+def build_matrix(
+    data: dict,
+    repository: str,
+    branch: str | None,
+    client: GitHubClient,
+    workers: int = 8,
+) -> tuple[dict, dict]:
+    branch = branch or None
+    if branch is not None and repository == "all":
+        raise SystemExit("branch selection requires an exact repository")
+
+    lanes = expand_lanes(data)
+    manual_repository = repository != "all"
+    if manual_repository:
+        lanes = [lane for lane in lanes if lane["name"] == repository]
+        if not lanes:
             raise SystemExit(f"repository is not in the inventory: {repository}")
+    if branch is not None:
+        lanes = [lane for lane in lanes if lane["branch"] == branch]
+        if not lanes:
+            raise SystemExit(f"branch is not tracked for repository: {repository}@{branch}")
 
     observations: list[dict] = []
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = [
-            pool.submit(inspect_repository, client, data["source_owner"], data["destination_owner"], item)
-            for item in items
+            pool.submit(
+                inspect_lane,
+                client,
+                data["source_owner"],
+                data["destination_owner"],
+                lane,
+            )
+            for lane in lanes
         ]
         for future in as_completed(futures):
             observations.append(future.result())
-    observations.sort(key=lambda result: result["item"]["name"].casefold())
+    observations.sort(
+        key=lambda result: (
+            result["lane"]["name"].casefold(),
+            result["lane"]["branch"].casefold(),
+        )
+    )
 
-    selected = [result for result in observations if manual_single or result["state"] != "current"]
-    matrix = {"include": [{
-        "name": result["item"]["name"],
-        "upstream": result["item"]["upstream"],
-        "branch": result["item"]["default_branch"],
-        "destination_owner": data["destination_owner"],
-        "scan_state": result["state"],
-    } for result in selected]}
+    selected = [
+        result
+        for result in observations
+        if manual_repository or result["state"] != "current"
+    ]
+    matrix = {
+        "include": [
+            {**result["lane"], "scan_state": result["state"]}
+            for result in selected
+        ]
+    }
     counts = {
         "scanned": len(observations),
         "current": sum(result["state"] == "current" for result in observations),
         "changed": sum(result["state"] == "changed" for result in observations),
-        "errors": sum(result["state"].startswith("scan-error:") for result in observations),
+        "errors": sum(
+            result["state"].startswith("scan-error:") for result in observations
+        ),
         "selected": len(selected),
     }
     return matrix, counts
@@ -116,6 +175,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--inventory", type=Path, default=Path("config/repositories.json"))
     parser.add_argument("--repository", default="all")
+    parser.add_argument("--branch", default="")
     parser.add_argument("--github-output", type=Path)
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--workers", type=int, default=8)
@@ -126,16 +186,17 @@ def main() -> None:
     if not token:
         raise SystemExit("GH_TOKEN is required")
 
-    data = load_and_validate(args.inventory)
+    data = load_and_validate(args.inventory, required_scope=ACTIVE_SCOPE)
     matrix, counts = build_matrix(
         data,
         args.repository,
+        args.branch or None,
         GitHubClient(token, os.environ.get("GITHUB_API_URL", "https://api.github.com")),
         args.workers,
     )
     encoded = json.dumps(matrix, separators=(",", ":"))
     print(
-        "scanned {scanned}: {current} current, {changed} changed, "
+        "scanned {scanned} refs: {current} current, {changed} changed, "
         "{errors} errors; selected {selected}".format(**counts)
     )
     if args.github_output:
@@ -148,7 +209,7 @@ def main() -> None:
         with args.summary.open("a", encoding="utf-8") as summary:
             summary.write("## Upstream scan\n\n")
             summary.write(
-                "Scanned **{scanned}** repositories: **{current}** current, "
+                "Scanned **{scanned}** tracked refs: **{current}** current, "
                 "**{changed}** changed, **{errors}** errors. "
                 "Queued **{selected}** sync lanes.\n".format(**counts)
             )

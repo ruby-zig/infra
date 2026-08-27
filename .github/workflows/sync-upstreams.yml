@@ -1,4 +1,4 @@
-name: sync upstream default branches
+name: sync tracked upstream branches
 
 on:
   schedule:
@@ -10,12 +10,17 @@ on:
         required: true
         default: all
         type: string
+      branch:
+        description: Optional tracked branch for one exact repository
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: upstream-default-branch-sync
+  group: upstream-tracked-branch-sync
   cancel-in-progress: false
 
 jobs:
@@ -28,23 +33,31 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Validate inventory
-        run: python3 scripts/validate_inventory.py
-      - name: Find forks that need attention
+      - name: Validate inventories
+        run: |
+          python3 scripts/validate_inventory.py config/repositories.json \
+            --expected-count 39 \
+            --require-scope native-build-affected
+          python3 scripts/validate_inventory.py config/discovery-repositories.json \
+            --expected-count 190
+      - name: Find refs that need attention
         id: matrix
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_API_URL: ${{ github.api_url }}
           SELECTED_REPOSITORY: ${{ inputs.repository || 'all' }}
+          SELECTED_BRANCH: ${{ inputs.branch || '' }}
         run: >-
           python3 scripts/matrix.py
           --repository "$SELECTED_REPOSITORY"
+          --branch "$SELECTED_BRANCH"
           --github-output "$GITHUB_OUTPUT"
           --summary "$GITHUB_STEP_SUMMARY"
 
   sync:
     if: needs.prepare.outputs.count != '0'
     needs: prepare
+    name: sync ${{ matrix.name }}@${{ matrix.branch }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -56,7 +69,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Scan result
-        run: echo 'Queued because ${{ matrix.scan_state }}'
+        env:
+          SCAN_STATE: ${{ matrix.scan_state }}
+        run: echo "Queued because $SCAN_STATE"
       - name: Mint repository-scoped App token
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -67,13 +82,13 @@ jobs:
           repositories: ${{ matrix.name }}
           permission-contents: write
           permission-workflows: write
-      - name: Fast-forward default branch
+      - name: Fast-forward tracked branch
         id: sync
         continue-on-error: true
         shell: bash
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.name }}.json
+          REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
         run: |
           chmod +x scripts/sync-one.sh
           scripts/sync-one.sh \
@@ -86,17 +101,17 @@ jobs:
         if: always()
         shell: bash
         env:
-          REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.name }}.json
+          REPORT: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
         run: |
           if [[ -s "$REPORT" ]]; then
-            jq -r '"### `" + .repository + "`\n\nStatus: **" + .status + "**\n\nBefore: `" + (.before // "") + "`\n\nUpstream: `" + (.upstream_sha // "") + "`"' "$REPORT" >> "$GITHUB_STEP_SUMMARY"
+            jq -r '"### `" + .repository + "@" + .branch + "`\n\nStatus: **" + .status + "**\n\nBefore: `" + (.before // "") + "`\n\nUpstream: `" + (.upstream_sha // "") + "`"' "$REPORT" >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Upload sync report
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: sync-${{ matrix.name }}
-          path: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.name }}.json
+          name: sync-${{ matrix.lane_id }}
+          path: ${{ runner.temp }}/ruby-zig-sync/result-${{ matrix.lane_id }}.json
           if-no-files-found: warn
           retention-days: 30
       - name: Propagate sync failure
