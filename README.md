@@ -1,6 +1,6 @@
 # ruby-zig infrastructure
 
-This public repository owns scheduled fork maintenance for the `ruby-zig` organization. It contains no credentials: the GitHub App ID and private key live only in Actions secrets. Public build policy, the reusable Zig action, target definitions, and build evidence belong in public `ruby-zig/toolchain`; this repository only advances existing fork refs to their exact Ruby upstream refs.
+This public repository owns scheduled fork maintenance for the `ruby-zig` organization. It contains no credentials: GitHub App IDs and private keys live only in Actions secrets. Public build policy, the reusable Zig action, target definitions, and build evidence belong in public `ruby-zig/toolchain`. This repository advances existing fork refs to their exact Ruby upstream refs, then asks the toolchain controller to build that exact commit.
 
 Keeping the controller public makes its inventory and mutation rules reviewable, while standard GitHub-hosted runners remain available without maintaining a private runner fleet.
 
@@ -28,9 +28,11 @@ A sync is allowed only when all of these checks pass:
 
 GitHub then receives a non-forced reference update. Missing, ahead, diverged, mismatched, protected, or untracked refs fail their lanes and remain unchanged. The controller never merges, rebases, resets, deletes, creates branches, or force-pushes. Zig work belongs on `zigcc/<upstream-branch>` or narrow topic branches; tracked refs stay upstream-clean.
 
-## GitHub App
+A build dispatch is allowed only after the lane writes a valid `current` or `fast-forwarded` sync report. The dispatch helper revalidates the repository/ref pair against the checked-in inventory and requires the report to contain one exact lowercase 40-character commit ID. It sends only the synchronized fork repository, tracked branch, and that commit ID to `continuous.yml@main`. The toolchain controller independently checks reachability before it executes source code.
 
-Install a dedicated App on the 39 destination forks with only:
+## GitHub Apps
+
+Install a dedicated sync App on the 39 destination forks with only:
 
 - **Contents: read and write** for Git references;
 - **Workflows: read and write** because a legitimate upstream fast-forward can change `.github/workflows`;
@@ -41,12 +43,21 @@ It needs no organization permissions, webhooks, or branch-protection bypass. Con
 - `RUBY_ZIG_SYNC_APP_ID`
 - `RUBY_ZIG_SYNC_APP_PRIVATE_KEY`
 
-No personal access token is used. A token is minted only inside a selected sync lane and narrowed to that lane's repository.
+Install a separate dispatch App only on `ruby-zig/toolchain`, with **Actions: read and write** and implicit **Metadata: read**. Configure two more Actions secrets here:
+
+- `RUBY_ZIG_DISPATCH_APP_ID`
+- `RUBY_ZIG_DISPATCH_APP_PRIVATE_KEY`
+
+No personal access token is used. A sync token is minted only inside a selected lane and narrowed to that lane's fork. After a successful sync, a second token is minted for `toolchain` alone with only Actions write access. The two installations keep ref mutation and build scheduling in separate credentials.
 
 ## Operation
 
-`.github/workflows/sync-upstreams.yml` checks all 42 tracked refs every three hours on `ubuntu-24.04`. The prepare job makes two public ref reads per identity with bounded concurrency. It emits only non-current or failed checks, with at most 20 standard GitHub-hosted runners active for sync work.
+`.github/workflows/sync-upstreams.yml` checks all 42 tracked refs every three hours on `ubuntu-24.04`. The prepare job makes two public ref reads per identity with bounded concurrency. It emits only non-current or failed checks, with at most 20 standard GitHub-hosted runners active for sync and dispatch work.
 
-Manual dispatch accepts `all` or one exact repository name. For one repository it also accepts an optional exact tracked branch. Lane, report, and artifact identifiers contain a bounded branch slug plus a stable hash, so branches containing slashes remain safe and distinct. A lane that reaches `sync-one.sh` uploads its JSON result and reports drift without stopping unrelated lanes. Token-mint or earlier setup failures remain visible in the job result and logs but may occur before a JSON report exists.
+Manual dispatch accepts `all` or one exact repository name. For one repository it also accepts an optional exact tracked branch. Lane, report, and artifact identifiers contain a bounded branch slug plus a stable hash, so branches containing slashes remain safe and distinct. A lane that reaches `sync-one.sh` uploads its sync result; a lane that reaches `dispatch-build.sh` also uploads a machine-readable dispatch result containing the requested source identity and the created toolchain run ID and URL. GitHub's current workflow-dispatch API version returns that run identity directly, so no timing-based run lookup is needed. Token-mint or earlier setup failures remain visible in the job result and logs but may occur before the corresponding JSON report exists.
+
+Each lane is independent and `fail-fast` is disabled. A refused sync never mints a dispatch token. A refused or failed dispatch does not hide the sync report, but the lane still fails after both reports are uploaded. Successful `current` lanes dispatch as well as newly fast-forwarded lanes, which makes an explicit one-repository run a reliable rebuild command.
+
+The separate `control.yml` workflow is safe to run while synchronization remains disabled. It uses no secrets and performs the Python and mocked shell test suites, both inventory validations, shell syntax checks, JSON parsing, and ShellCheck on pull requests, pushes, or manual request.
 
 The controller assumes the forks and tracked branches already exist. Fork creation is a separate, account-authorized bootstrap with one worker by default and a hard maximum of four. A destination-only App installation cannot create forks from repositories in the separate `ruby` organization.
