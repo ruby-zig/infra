@@ -23,7 +23,12 @@ class FakeClient:
 
 def inventory():
     repositories = [
-        {"name": name, "upstream": f"ruby/{name}", "default_branch": "main"}
+        {
+            "name": name,
+            "upstream": f"ruby/{name}",
+            "default_branch": "main",
+            "branches": ["main"],
+        }
         for name in ("current", "changed", "missing")
     ]
     return {
@@ -39,19 +44,28 @@ def client():
         refs[("ruby", name, "main")] = RefResult(SHA_A)
     refs[("ruby-zig", "current", "main")] = RefResult(SHA_A)
     refs[("ruby-zig", "changed", "main")] = RefResult(SHA_B)
-    refs[("ruby-zig", "missing", "main")] = RefResult(None, "missing-ref-or-repository")
+    refs[("ruby-zig", "missing", "main")] = RefResult(
+        None, "missing-ref-or-repository"
+    )
     return FakeClient(refs)
 
 
 class MatrixTests(unittest.TestCase):
     def test_all_queues_only_changed_and_errors(self):
-        matrix, counts = build_matrix(inventory(), "all", client(), workers=2)
+        matrix, counts = build_matrix(inventory(), "all", None, client(), workers=2)
 
-        self.assertEqual([item["name"] for item in matrix["include"]], ["changed", "missing"])
-        self.assertEqual(counts, {"scanned": 3, "current": 1, "changed": 1, "errors": 1, "selected": 2})
+        self.assertEqual(
+            [item["name"] for item in matrix["include"]], ["changed", "missing"]
+        )
+        self.assertEqual(
+            counts,
+            {"scanned": 3, "current": 1, "changed": 1, "errors": 1, "selected": 2},
+        )
 
     def test_manual_single_runs_even_when_current(self):
-        matrix, counts = build_matrix(inventory(), "current", client(), workers=2)
+        matrix, counts = build_matrix(
+            inventory(), "current", None, client(), workers=2
+        )
 
         self.assertEqual([item["name"] for item in matrix["include"]], ["current"])
         self.assertEqual(matrix["include"][0]["scan_state"], "current")
@@ -59,7 +73,7 @@ class MatrixTests(unittest.TestCase):
 
     def test_unknown_manual_repository_is_refused(self):
         with self.assertRaisesRegex(SystemExit, "not in the inventory"):
-            build_matrix(inventory(), "unknown", client(), workers=2)
+            build_matrix(inventory(), "unknown", None, client(), workers=2)
 
 
 if __name__ == "__main__":
